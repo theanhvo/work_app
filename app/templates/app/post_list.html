@@ -13,6 +13,12 @@
           <li>{{ post.position }}</li>
           <li>{{ post.created|date }}</li>
           <li>{{ post.updated|date }}</li>
+          <li>Job:</li>
+            <ul>
+              {% for job in post.job_set.all %}
+                <li>{{ job.name }}</li>
+              {% endfor %}
+            </ul>
           <li>{{ post.detail_job }}</li>
           <li>{{ post.job_requirements }}</li>
           <li>{{ post.why_love_this_job }}</li>
