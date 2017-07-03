@@ -27,9 +27,9 @@ class PostListView(ListView):
             search_list = search.split(',')
             if len(search_list) >= 1:
                 # filter with job
-                result = result.filter(detail_job__icontains=search_list[0])
+                result = result.filter(detail_job__search=search_list[0])
             if len(search_list) >= 2:
                 # filter more with restaurant
-                result = result.filter(restaurant_namme__icontains=search_list[1])
+                result = result.filter(restaurant_namme__search=search_list[1])
 
         return result
