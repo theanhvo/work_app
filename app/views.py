@@ -1,13 +1,10 @@
-from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.utils import timezone
+
 from .models import Post
-import operator
-from django.db.models import Q
-from functools import reduce
+
 
 class PostListView(ListView):
-
 
     model = Post
 
@@ -22,18 +19,17 @@ class PostListView(ListView):
 
         search = self.request.GET.get('search')
         city = self.request.GET.get('city')
-        if city not in  ['hn', 'sg']:
-            city = ''
+        if city in  ['hn', 'sg']:
+            # filter with city
+            result = result.filter(city=city)
 
         if search:
             search_list = search.split(',')
-            result = result.filter(
-                reduce(operator.and_,
-                       (Q(restaurant_namme__icontains=q) for q in search_list)) and
-                reduce(operator.and_,
-                       (Q(detail_job__icontains=q) for q in search_list))
+            if len(search_list) >= 1:
+                # filter with job
+                result = result.filter(detail_job__icontains=search_list[0])
+            if len(search_list) >= 2:
+                # filter more with restaurant
+                result = result.filter(restaurant_namme__icontains=search_list[1])
 
-                       and
-                Q(city__icontains=city)
-            )
         return result
