@@ -1,0 +1,72 @@
+from django.utils.encoding import python_2_unicode_compatible
+from django.db import models
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+
+
+
+# Create your models here.
+@python_2_unicode_compatible
+class Post(models.Model):
+    HN = 'hn'
+    SG = 'sg'
+    CITY_CHOICES = (
+        (HN, 'Hà Nội'),
+        (SG, 'Tp.Hồ Chí Minh')
+    )
+    logo_restaurant = models.ImageField(
+        upload_to='logo'
+    )
+    restaurant_namme = models.CharField(
+        _('Restaurant_namme'),
+        max_length=100
+    )
+
+    address = models.CharField(
+        _('Address'),
+        max_length=100
+    )
+
+    city = models.CharField(
+        _('City'),
+        max_length=50,
+        choices=CITY_CHOICES,
+        default=SG,
+        blank=True,
+        null=True
+    )
+    wage = models.CharField(
+        _('Wage'),
+        max_length=20
+    )
+
+    employer_mail = models.EmailField(
+        _('Employer_mail'),
+    )
+
+    position = models.CharField(
+        _('Position'),
+        max_length=36
+    )
+
+    created = models.DateTimeField(
+        _('Created'),
+        auto_now_add=True
+    )
+
+    updated = models.DateTimeField(
+        _('Updated'),
+        auto_now=True
+    )
+
+    detail_job = models.TextField(
+        _('Detail_job'),
+    )
+
+    job_requirements = models.TextField(
+        _('Job_requirements'),
+    )
+
+    why_love_this_job = models.TextField(
+        _('Why_love_this_job'),
+    )
