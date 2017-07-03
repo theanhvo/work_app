@@ -2,29 +2,23 @@
 {% load staticfiles %}
 {% block content %}
   <div class='container'>
-      <h1>Post</h1>
-      <ul>
-      {% for post in object_list %}
-          <li><img src="{% static post.logo_restaurant %}" class="img-responsive"></li>
-          <li>{{ post.restaurant_namme }}</li>
-          <li>{{ post.address }}</li>
-          <li>{{ post.wage }}</li>
-          <li>{{ post.employer_mail }}</li>
-          <li>{{ post.position }}</li>
-          <li>{{ post.created|date }}</li>
-          <li>{{ post.updated|date }}</li>
-          <li>Job:</li>
-            <ul>
-              {% for job in post.job_set.all %}
-                <li>{{ job.name }}</li>
-              {% endfor %}
-            </ul>
-          <li>{{ post.detail_job }}</li>
-          <li>{{ post.job_requirements }}</li>
-          <li>{{ post.why_love_this_job }}</li>
-      {% empty %}
-          <li>Không tồn tại</li>
-      {% endfor %}
-      
+    <ul>
+    {% for post in object_list %}
+        <li><img src="{% static post.logo_restaurant %}" class="img-responsive"></li>
+        <li><a href="{% url 'post-detail' pk=post.pk %}">Restaurant_namme</a></li>
+        <li><a href=''>{{ post.restaurant_namme }}</a></li>
+        <li>{{ post.address }}</li>
+        <li>Job:</li>
+          <ul>
+            {% for job in post.job_set.all %}
+              <li>{{ job.name }}</li>
+            {% endfor %}
+          </ul>
+        <li>{{ post.detail_job }}</li>
+
+    {% empty %}
+        <li>Không tồn tại</li>
+    {% endfor %}
+  </ul>
   </div>
 {% endblock %}
