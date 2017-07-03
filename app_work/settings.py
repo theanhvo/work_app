@@ -39,6 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'django.contrib.postgres.search',
+
+    'userena',
+    'guardian',
+    'easy_thumbnails',
+    'django.contrib.sites',
+
     'app'
 ]
 
@@ -129,3 +135,17 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(ROOT_DIR, "")
 STATIC_URL = '/static/'
+
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+AUTH_PROFILE_MODULE = 'app.MyProfile'
+ANONYMOUS_USER_ID = -1
+
+USERENA_SIGNIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
