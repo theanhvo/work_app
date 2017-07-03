@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 
 
-# Create your models here.
 @python_2_unicode_compatible
 class Post(models.Model):
     HN = 'hn'
@@ -59,10 +58,6 @@ class Post(models.Model):
         auto_now=True
     )
 
-    detail_job = models.TextField(
-        _('Detail_job'),
-    )
-
     job_requirements = models.TextField(
         _('Job_requirements'),
     )
@@ -70,3 +65,20 @@ class Post(models.Model):
     why_love_this_job = models.TextField(
         _('Why_love_this_job'),
     )
+
+    def __str__(self):
+        return self.restaurant_namme
+
+@python_2_unicode_compatible
+class Job(models.Model):
+    post = models.ManyToManyField(
+        Post
+    )
+
+    name = models.CharField(
+        _('Name'),
+        max_length=30
+    )
+
+    def __str__(self):
+        return self.name
