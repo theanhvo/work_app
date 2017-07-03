@@ -10,37 +10,14 @@
     <p>{{ object.position }}</p>
     <p>{{ object.created|date }}</p>
     <p>{{ object.updated|date }}</p>
-    {% for job in post.job_set.all %}
-      <li>{{ job.name }}</li>
-    {% endfor %}
-
-    <p>{{ object.detail_job }}</p>
-    <p>{{ object.job_requirements }}</p>
-    <p>{{ object.why_love_this_job }}</p>
-
-
-
-
-
-    <!-- <li><img src="{% static post.logo_restaurant %}" class="img-responsive"></li>
-    <li>{{ post.restaurant_namme }}</li>
-    <li>{{ post.address }}</li>
-    <li>{{ post.wage }}</li>
-    <li>{{ post.employer_mail }}</li>
-    <li>{{ post.position }}</li>
-    <li>{{ post.created|date }}</li>
-    <li>{{ post.updated|date }}</li>
-    <li>Job:</li>
+    <p>Jobs:</p>
       <ul>
         {% for job in post.job_set.all %}
           <li>{{ job.name }}</li>
         {% endfor %}
       </ul>
-    <li>{{ post.detail_job }}</li>
-    <li>{{ post.job_requirements }}</li>
-    <li>{{ post.why_love_this_job }}</li>
-{% empty %}
-    <li>Không tồn tại</li>
-{% endfor %} -->
+    <p>{{ object.detail_job }}</p>
+    <p>{{ object.job_requirements }}</p>
+    <p>{{ object.why_love_this_job }}</p>
 
 {% endblock %}
