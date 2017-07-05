@@ -1,5 +1,6 @@
 import django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", “app_work.settings")  # noqa
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app_work.settings")  # noqa
 django.setup()
 from app import models
 import requests
@@ -38,6 +39,8 @@ for ab in push_right1:
 table = soup1.find("table")
 table_content = table.text
 print(table_content)
+
+# TODO(theanh) extract post logo_restaurant, restaurant_name, .... from table content
 post = models.Post.objects.create(
     logo_restaurant,
     restaurant_namme,
@@ -49,4 +52,8 @@ post = models.Post.objects.create(
     job_requirements,
     why_love_this_job
 )
-models.Job.objects.create(name)
+
+# TODO(theanh) job name ??
+job = models.Job.objects.get_or_create(name)
+job.post.add(post)
+job.save()
