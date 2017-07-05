@@ -54,6 +54,29 @@ class Post(models.Model):
         max_length=36
     )
 
+    number_recruits = models.IntegerField(
+        _('Number_recruits'),
+        null=True
+    )
+
+    gender = models.CharField(
+        _('Gender'),
+        max_length=7,
+        null=True
+    )
+
+    job_feature = models.CharField(
+        _('Job_feature'),
+        max_length=100,
+        null=True
+    )
+
+    employee_type = models.CharField(
+        _('Employee_type'),
+        max_length=100,
+        null=True
+    )
+
     created = models.DateTimeField(
         _('Created'),
         auto_now_add=True
