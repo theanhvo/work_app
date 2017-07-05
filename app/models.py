@@ -44,6 +44,11 @@ class Post(models.Model):
         _('Employer_mail'),
     )
 
+    contact_employer = models.CharField(
+        _('Contact_employer'),
+        max_length=30,
+        null=True
+    )
     position = models.CharField(
         _('Position'),
         max_length=36
@@ -59,6 +64,11 @@ class Post(models.Model):
         auto_now=True
     )
 
+    job_description = models.TextField(
+        _('Job_description'),
+        null=True
+    )
+
     job_requirements = models.TextField(
         _('Job_requirements'),
     )
@@ -66,6 +76,13 @@ class Post(models.Model):
     why_love_this_job = models.TextField(
         _('Why_love_this_job'),
     )
+
+    deadline = models.CharField(
+        _('Deadline'),
+        max_length=20,
+        null=True
+    )
+
 
     def __str__(self):
         return self.restaurant_namme

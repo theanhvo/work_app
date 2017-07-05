@@ -42,15 +42,13 @@ print(table_content)
 
 # TODO(theanh) extract post logo_restaurant, restaurant_name, .... from table content
 post = models.Post.objects.create(
-    logo_restaurant,
+    link_img,
     restaurant_namme,
     address,
     city,
-    wage,
-    employer_mail,
-    position,
-    job_requirements,
-    why_love_this_job
+    muc_luong,
+    tccv,
+    table_content
 )
 
 # TODO(theanh) job name ??
