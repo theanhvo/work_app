@@ -14,9 +14,11 @@ class Post(models.Model):
         (HN, 'Hà Nội'),
         (SG, 'Tp.Hồ Chí Minh')
     )
+
     logo_restaurant = models.ImageField(
         upload_to='logo'
     )
+
     restaurant_namme = models.CharField(
         _('Restaurant_namme'),
         max_length=100
@@ -42,6 +44,8 @@ class Post(models.Model):
 
     employer_mail = models.EmailField(
         _('Employer_mail'),
+        blank=True,
+        null=True
     )
 
     contact_employer = models.CharField(
@@ -49,9 +53,11 @@ class Post(models.Model):
         max_length=30,
         null=True
     )
-    position = models.CharField(
-        _('Position'),
-        max_length=36
+
+    experience = models.CharField(
+        _('Experience'),
+        max_length=36,
+        null=True
     )
 
     number_recruits = models.IntegerField(
@@ -71,8 +77,8 @@ class Post(models.Model):
         null=True
     )
 
-    employee_type = models.CharField(
-        _('Employee_type'),
+    type_job = models.CharField(
+        _('Type_job'),
         max_length=100,
         null=True
     )
