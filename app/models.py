@@ -21,12 +21,12 @@ class Post(models.Model):
 
     restaurant_namme = models.CharField(
         _('Restaurant_namme'),
-        max_length=100
+        max_length=256
     )
 
     address = models.CharField(
         _('Address'),
-        max_length=100
+        max_length=256
     )
 
     city = models.CharField(
@@ -39,7 +39,7 @@ class Post(models.Model):
     )
     wage = models.CharField(
         _('Wage'),
-        max_length=20
+        max_length=256
     )
 
     employer_mail = models.EmailField(
@@ -50,13 +50,13 @@ class Post(models.Model):
 
     contact_employer = models.CharField(
         _('Contact_employer'),
-        max_length=30,
+        max_length=256,
         null=True
     )
 
     experience = models.CharField(
         _('Experience'),
-        max_length=36,
+        max_length=256,
         null=True
     )
 
@@ -67,19 +67,19 @@ class Post(models.Model):
 
     gender = models.CharField(
         _('Gender'),
-        max_length=7,
+        max_length=256,
         null=True
     )
 
     job_feature = models.CharField(
         _('Job_feature'),
-        max_length=100,
+        max_length=256,
         null=True
     )
 
     type_job = models.CharField(
         _('Type_job'),
-        max_length=100,
+        max_length=256,
         null=True
     )
 
@@ -124,7 +124,7 @@ class Job(models.Model):
 
     name = models.CharField(
         _('Name'),
-        max_length=30
+        max_length=256
     )
 
     def __str__(self):

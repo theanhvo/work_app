@@ -1,32 +1,47 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+import logging
 import django
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app_work.settings")  # noqa
 django.setup()
-from app import models
-import requests
+
 from bs4 import BeautifulSoup
-def crawl_detail(url1):
-    r1 = requests.get(url1)
-    soup1 = BeautifulSoup(r1.content, "lxml")
-    box_content = soup1.find("div", {"class" : "detail-content box-content"})
+import requests
+
+from app import models
+
+LOGGER = logging.getLogger(__name__)
+
+
+def crawl_detail(link):
+    """
+    Request to fetch page from url & store Post & Job
+    """
+    LOGGER.info('Crawl detail page %r', link)
+    resp = requests.get(link)
+    page = BeautifulSoup(resp.content, "lxml")
+
+    box_content = page.find("div", {"class" : "detail-content box-content"})
     name_work = box_content.h1.text
     print(name_work)
-    side_bar = soup1.find("div", {"class" : "block-sidebar"})
+
+    side_bar = page.find("div", {"class" : "block-sidebar"})
     img = side_bar.img
     link_img = img.get('src')
     print(link_img)
-    off_set = soup1.find("div" , {"class" : "col-xs-6 p-r-10 offset10"})
+
+    off_set = page.find("div" , {"class" : "col-xs-6 p-r-10 offset10"})
     asd = off_set.h3.text
     restaurant_name = asd.strip()
     print(restaurant_name)
+
     bass = off_set.span.text
     address_11 = bass.strip().split(':')
     address = address_11[1]
-
     print(address)
-    push_right = soup1.find_all("div", {"class" : "col-xs-4 offset20 push-right-20"})
+
+    push_right = page.find_all("div", {"class" : "col-xs-4 offset20 push-right-20"})
     for ab in push_right:
         li_tong = ab.ul.find_all('li')
     muc_luong = li_tong[0].text
@@ -34,16 +49,19 @@ def crawl_detail(url1):
     muc_luong1 = tmp[1].strip().split()
     muc_luong_result = ' '.join(muc_luong1)
     print(muc_luong_result)
+
     kinh_nghiem = li_tong[1].text
     gty = kinh_nghiem.split(':')
     kinh_nghiem1 = gty[1].strip().split()
     kinh_nghiem_result = ' '.join(kinh_nghiem1)
     print(kinh_nghiem_result)
+
     ppp = li_tong[3].text
     kil = ppp.strip().split('làm')
     thanh_pho = kil[1]
     print(thanh_pho)
-    col_xn = soup1.find_all("div" , {"class" : "col-xs-4 offset20"})
+
+    col_xn = page.find_all("div" , {"class" : "col-xs-4 offset20"})
     for bc in col_xn:
         li = bc.ul.find_all('li')
     wer = li[0].text
@@ -65,63 +83,84 @@ def crawl_detail(url1):
 
 
     #extract table
-    table = soup1.find('table')
-    bang = table.find_all('tr')
-    momo = bang[0].text
-    momo1 = momo.strip().split('tả')
-    mo_ta = momo1[1].strip()
-    mo_ta_result = mo_ta.replace("*" , "").strip()
-    print(mo_ta_result)
-    momo2 = bang[1].text
-    momo3 = momo2.strip().split('cầu')
-    yeu_cau = momo3[1].strip()
-    yeu_cau_result = yeu_cau.replace("*" , "").strip()
-    print(yeu_cau_result)
-    momo7 = bang[2].text
-    momo4 = momo7.strip().split('lợi')
-    love_job = momo4[1].strip()
-    love_job_result = love_job.replace("-" , "").strip()
-    print(love_job_result)
-    momo8 = table.find_all("tr", string="Hạn nộp")
-    import ipdb; ipdb.set_trace()
-    momo9 = momo8.strip().split('nộp')
-    deadline = momo9[1].strip()
-    print(deadline)
-    contact_employer = soup1.find("div", {"class" : "block-content"})
-    abc  = contact_employer.find('tr')
-    contact_employer1 = abc.text
-    contact_employer3 = contact_employer1.strip().split('hệ')
-    result_contact = contact_employer3[1].strip()
-    print(result_contact)
+    tables = page.find_all('table')
+    job_desc = None
+    job_requirements = None
+    benefit = None
+    deadline = None
+    employer_contact = None
 
-    # TODO(theanh) extract post logo_restaurant, restaurant_name, .... from table content
-    post = models.Post.objects.create(
-        logo_restaurant = link_img,
-        restaurant_name = restaurant_name,
-        address = address,
-        city = thanh_pho,
-        wage = muc_luong_result,
-        contact_employer = result_contact,
-        experience = kinh_nghiem_result,
-        number_recruits = so_luong,
-        gender = gioi_tinh,
-        job_feature = tinh_chat,
-        type_job = hinh_thuc,
-        job_description = mo_ta_result,
-        job_requirements = yeu_cau_result,
-        why_love_this_job = love_job_result,
-        deadline = deadline
+    rows = []
+    if len(tables) >= 1:
+        rows = tables[0].find_all('tr')
+        for row in rows:
+            title = row.b.text
+            if title == 'Mô tả':
+                job_desc = row.p.text.strip()
+
+            elif title == 'Yêu cầu':
+                job_requirements = row.p.text.strip()
+
+            elif title == 'Quyền lợi':
+                benefit = row.p.text.strip()
+
+            elif title == 'Hạn nộp':
+                deadline = row.find('b', {'class': 'text-danger'}).text.strip()
+
+    if len(tables) >= 2:
+        rows = tables[1].find_all('tr')
+        for row in rows:
+            title = row.b.text
+            if title == 'Mô tả':
+                job_desc = row.p.text.strip()
+
+            elif title == 'Người liên hệ':
+                employer_contact = row.p.text.strip()
+
+            elif title == 'Địa chỉ':
+                address = row.p.text.strip()
+
+    post_params = dict(
+        logo_restaurant=link_img,
+        restaurant_namme=restaurant_name,
+        address=address,
+        city=thanh_pho,
+        wage=muc_luong_result,
+        contact_employer=employer_contact,
+        experience=kinh_nghiem_result,
+        number_recruits=so_luong,
+        gender=gioi_tinh,
+        job_feature=tinh_chat,
+        type_job=hinh_thuc,
+        job_description=job_desc,
+        job_requirements=job_requirements,
+        why_love_this_job=benefit,
+        deadline=deadline,
     )
 
-    # TODO(theanh) job name ??
-    job = models.Job.objects.get_or_create(name = name_work)
-    job.post.add(post)
-    job.save()
-url = "https://www.timviecnhanh.com/viec-lam-du-lich-nha-hang-khach-san-c23.html?page=0"
-r = requests.get(url)
-soup = BeautifulSoup(r.content, "lxml")
-divtag = soup.find_all("div", {"class" : "intro col-xs-4 offset20 push-left-10"})
-for a in divtag:
-    links = a.find('a')
-    link = links.get('href')
-    crawl_detail(link)
+    for k in post_params:
+        LOGGER.debug('****')
+        LOGGER.debug(f'{k}: \n {post_params[k]}')
+
+    if not models.Post.objects.filter(
+        restaurant_namme=restaurant_name,
+        job_description=job_desc,
+        deadline=deadline,
+        ).exists():
+        LOGGER.info('Store new restaurant %r', post_params)
+
+        post = models.Post.objects.create(**post_params)
+        job, _ = models.Job.objects.get_or_create(name=name_work)
+        job.post.add(post)
+        job.save()
+
+
+if __name__ == '__main__':
+    url = "https://www.timviecnhanh.com/viec-lam-du-lich-nha-hang-khach-san-c23.html?page=0"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "lxml")
+    divtag = soup.find_all("div", {"class" : "intro col-xs-4 offset20 push-left-10"})
+    for a in divtag:
+        links = a.find('a')
+        link = links.get('href')
+        crawl_detail(link)
