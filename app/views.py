@@ -8,11 +8,11 @@ from .models import Post
 class PostListView(ListView):
 
     model = Post
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
-
         return context
 
     def get_queryset(self):
