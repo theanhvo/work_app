@@ -21,7 +21,6 @@ def crawl_detail(link):
     LOGGER.info('Crawl detail page %r', link)
     resp = requests.get(link)
     page = BeautifulSoup(resp.content, "lxml")
-
     box_content = page.find("div", {"class" : "detail-content box-content"})
     name_work = box_content.h1.text
     print(name_work)
@@ -111,14 +110,16 @@ def crawl_detail(link):
         rows = tables[1].find_all('tr')
         for row in rows:
             title = row.b.text
-            if title == 'Mô tả':
-                job_desc = row.p.text.strip()
 
-            elif title == 'Người liên hệ':
+            if title == 'Người liên hệ':
                 employer_contact = row.p.text.strip()
 
             elif title == 'Địa chỉ':
                 address = row.p.text.strip()
+
+    if thanh_pho == 'Hồ Chí Minh':
+        thanh_pho = Post.SG
+
 
     post_params = dict(
         logo_restaurant=link_img,
@@ -156,11 +157,11 @@ def crawl_detail(link):
 
 
 if __name__ == '__main__':
-    url = "https://www.timviecnhanh.com/viec-lam-du-lich-nha-hang-khach-san-c23.html?page=0"
+    url = "https://www.timviecnhanh.com/viec-lam-du-lich-nha-hang-khach-san-tai-ho-chi-minh-f23p1.html?page=1"
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "lxml")
-    divtag = soup.find_all("div", {"class" : "intro col-xs-4 offset20 push-left-10"})
-    for a in divtag:
-        links = a.find('a')
+    tdtag = soup.find_all("td", {"class" : "block-item w55"})
+    for a in tdtag:
+        links = a.find('a' , {"class" : "item"})
         link = links.get('href')
         crawl_detail(link)

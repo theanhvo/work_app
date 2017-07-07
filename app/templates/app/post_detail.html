@@ -3,7 +3,7 @@
 {% block content %}
 
     <h1>{{ object.restaurant_namme }}</h1>
-    <img src="{% static post.logo_restaurant %}" class="img-responsive"></li>
+    <a><img src="{{ post.logo_restaurant }}" class="img-responsive"></a></li>
     <p>{{ object.address }}</p>
     <p>{{ object.wage }}</p>
     <p>{{ object.employer_mail }}</p>

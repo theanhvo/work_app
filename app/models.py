@@ -15,8 +15,9 @@ class Post(models.Model):
         (SG, 'Tp.Hồ Chí Minh')
     )
 
-    logo_restaurant = models.ImageField(
-        upload_to='logo'
+    logo_restaurant = models.CharField(
+        _('Logo_restaurant'),
+        max_length=256
     )
 
     restaurant_namme = models.CharField(
