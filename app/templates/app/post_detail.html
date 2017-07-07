@@ -6,18 +6,18 @@
     <a><img src="{{ post.logo_restaurant }}" class="img-responsive"></a></li>
     <p>{{ object.address }}</p>
     <p>{{ object.wage }}</p>
-    <p>{{ object.employer_mail }}</p>
     <p>{{ object.position }}</p>
     <p>{{ object.created|date }}</p>
-    <p>{{ object.updated|date }}</p>
+
     <p>Jobs:</p>
       <ul>
         {% for job in post.job_set.all %}
           <li>{{ job.name }}</li>
         {% endfor %}
       </ul>
-    <p>{{ object.detail_job }}</p>
-    <p>{{ object.job_requirements }}</p>
+    <p>{{ object.job_description }}</p>
+    <p>{{ object.deadline }}</p>
     <p>{{ object.why_love_this_job }}</p>
-
+    <p>{{ object.job_description }}</p>
+    <p>{{ object.job_requirements }}</p>
 {% endblock %}
