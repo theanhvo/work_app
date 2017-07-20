@@ -2,25 +2,28 @@
 {% load staticfiles %}
 {% block content %}
   <div class='container'>
-    <ul>
     {% for post in object_list %}
-        <li><img src="{{ post.logo_restaurant }}" class="img-responsive"></li>
-        <li><a href="{% url 'post-detail' pk=post.pk %}">{{ post.restaurant_namme }}</a></li>
-        <li>{{ post.address }}</li>
-        <li>Job:</li>
-          <ul>
-            {% for job in post.job_set.all %}
-              <li>{{ job.name }}</li>
-            {% endfor %}
-          </ul>
-        <li>{{ post.detail_job }}</li>
-
-    {% empty %}
-        <li>Không tồn tại</li>
-    {% endfor %}
-  </ul>
-
+    <div class="row content">
+          <div class="col-sm-2 hoalip">
+            <div class="picture"><img src="{{ post.logo_restaurant }}" class="img-responsive image_carousel"></a></div>
+          </div>
+          <div class="col-sm-10 tutulip">
+              <div class="deadline">
+                <a href="{% url 'post-detail' pk=post.pk %}"><span class="tulip">{{ post.restaurant_namme }}</span></a>
+                <p>{{ post.address }} </p>
+                {% for job in post.job_set.all %}
+                <p>{{ job.name }}</p>
+                {% endfor %}
+                <p>{{ post.deadline }}</p>
+              </div>
+          </div>
+        </div>
+        <hr>
+      {% empty %}
+          <p>Không tồn tại</p>
+      {% endfor %}
 {% if is_paginated %}
+<div class="next">
 <ul class="pagination">
 {% if page_obj.has_previous %}
     <li>
@@ -37,6 +40,6 @@
 {% endif %}
 </ul>
 {% endif %}
-
+</div>
   </div>
 {% endblock %}

@@ -1,23 +1,64 @@
 {% extends 'app_base.html' %}
 {% load staticfiles %}
 {% block content %}
-
-    <h1>{{ object.restaurant_namme }}</h1>
-    <a><img src="{{ post.logo_restaurant }}" class="img-responsive"></a></li>
-    <p>{{ object.address }}</p>
-    <p>{{ object.wage }}</p>
-    <p>{{ object.position }}</p>
-    <p>{{ object.created|date }}</p>
-
-    <p>Jobs:</p>
-      <ul>
-        {% for job in post.job_set.all %}
-          <li>{{ job.name }}</li>
-        {% endfor %}
-      </ul>
-    <p>{{ object.job_description }}</p>
-    <p>{{ object.deadline }}</p>
-    <p>{{ object.why_love_this_job }}</p>
-    <p>{{ object.job_description }}</p>
-    <p>{{ object.job_requirements }}</p>
-{% endblock %}
+  <div class="container">
+      <h1 class="name_company">{{ object.restaurant_namme }}</h1>
+      <div class="space">
+      </div>
+      <div class="col-sm-9 company">
+          {% for job in post.job_set.all %}
+            <h3>{{ job.name }}</h3>
+          {% endfor %}
+        <div class="col-sm-6">
+          <div class="thongtin">
+            <i class="fa fa-usd" aria-hidden="true">  Mức lương : {{ object.wage }}</i>
+          </div>
+          <div class="thongtin">
+            <i class="fa fa-briefcase" aria-hidden="true">  Kinh nghiệm : {{ object.experience }}</i>
+          </div>
+          <div class="thongtin">
+            <i class="fa fa-id-card" aria-hidden="true">  Hình thức làm việc : {{ object.type_job }}</i>
+          </div>
+          <div class="thongtin">
+            <i class="fa fa-transgender-alt" aria-hidden="true">  Giới tính : {{ object.gender }}</i>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="thongtin">
+            <i class="fa fa-map-marker" aria-hidden="true">  Địa điểm làm việc : {{ object.city }}</i>
+          </div>
+          <div class="thongtin">
+            <i class="fa fa-user-o" aria-hidden="true">  Số lượng tuyển dụng : {{ object.number_recruits }}</i>
+          </div>
+          <div class="thongtin">
+            <i class="fa fa-list-ul" aria-hidden="true">  Tính chất làm việc : {{ object.job_feature }}</i>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <h4>Yêu cầu công việc :</h4>
+          <p>{{ object.job_requirements }}
+          <h4>Mô tả công việc :</h4>
+          <p>{{ object.job_description }}
+          <h4>Tại sao bạn thichs làm việc tại đây :</h4>
+          <p>{{ object.why_love_this_job }}</p>
+        </div>
+      </div>
+      <div class="col-sm-3 information">
+        <div class="picture">
+          <img src="{{ post.logo_restaurant }}" class="img-responsive image_carousel"></a>
+        </div>
+        <div class="book">
+          <i class="fa fa-address-book book" aria-hidden="true">  Người liên hệ : {{ object.contact_employer }}</i>
+        </div>
+        <div class="marker">
+          <i class="fa fa-map-marker" aria-hidden="true">   Địa chỉ: {{ object.address }}</i>
+        </div>
+        <div class="check">
+          <i class="fa fa-calendar-check-o" aria-hidden="true">  Ngày đăng : {{ object.created|date }}</i>
+        </div>
+        <div class="minus">
+          <i class="fa fa-calendar-minus-o" aria-hidden="true">  Hạn nộp hồ sơ : {{ object.deadline }}</i>
+        </div>
+      </div>
+      {% endblock %}
+  </div>
