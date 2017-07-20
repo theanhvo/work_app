@@ -25,8 +25,8 @@ SECRET_KEY = 'dcq!v-%3vrayfby51x-yc%!8_^)4&aa07%t2$@h+xw06$lh7ls'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'a9803229.ngrok.io']
-
+ALLOWED_HOSTS = []
+# '0.0.0.0', 'a9803229.ngrok.io'
 
 # Application definition
 
@@ -149,4 +149,4 @@ ANONYMOUS_USER_ID = -1
 USERENA_SIGNIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
-SITE_ID = 1 
+SITE_ID = 1
