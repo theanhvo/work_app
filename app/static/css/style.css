@@ -295,3 +295,6 @@ margin: 0 10px 5px 0; /*margin between images*/
 .information {
   padding-top: 20px;
 }
+.content {
+  border: 1px solid #eee;
+}
