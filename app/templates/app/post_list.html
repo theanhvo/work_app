@@ -42,4 +42,17 @@
 {% endif %}
 </div>
   </div>
+
+  <script>
+  $( function() {
+    var availableTags = [
+      {% for suggest in suggests %}
+          "{{suggest}}",
+      {% endfor %}
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
 {% endblock %}

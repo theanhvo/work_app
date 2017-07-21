@@ -257,17 +257,18 @@ margin: 0 10px 5px 0; /*margin between images*/
   border: 1px solid #eee;
 }
 .select {
-  background-color: transparent;
+  background-color: #fff;
   height: 34px;
   border-radius: 5px;
   border-color: #3c763d;
 }
 .submit {
-  background-color: transparent;
+  background-color: #ff3333;
   border-color: #3c763d;
 }
 .form-inline {
-  float: right;
+  display: block;
+  float: left;
 }
 @media (max-width: 1090px){
   .navbar-default .navbar-toggle .icon-bar  {
@@ -284,3 +285,23 @@ margin: 0 10px 5px 0; /*margin between images*/
     width: 270px;
   }
 }
+#ui-id-1 {
+  /*background-color: #fff;
+  list-style-type: none;
+  width: 300px;*/
+}
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    background-color: #fff;
+    list-style-type: none;
+    width: 300px;
+  }
+  /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+  * html .ui-autocomplete {
+    height: 100px;
+  }

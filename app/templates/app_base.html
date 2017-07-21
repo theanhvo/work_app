@@ -13,6 +13,9 @@
     <!-- <script src="{% static "js/bootstrap.min.js" %}"></script> -->
 
     <title>Post</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
   <body>
     <header class="header">
@@ -50,6 +53,23 @@
     	        <div class="container caption-table">
     	            <div class="caption-table-cell">
     	                <h1 class="text-heavy text-white">Tìm kiếm các<br>Công việc <span class="text-yellow text-bold wow fadeIn " data-wow-delay="1s">Nhà hàng</span></h1>
+                      <form action="/" class="form-inline">
+                        <div class="form-group has-success has-feedback">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" id="tags" aria-describedby="inputGroupSuccess3Status" placeholder="tên công việc" name='tags'>
+                          </div>
+                          <select class="select" name="city">
+                            <option>Thành Phố </option>
+                            <option value="sg">Tp.Hồ Chí Minh</option>
+                            <option value="hn">Hà Nội</option>
+                          </select>
+                          <button type="submit" class="btn submit">
+                            Search
+                          </button>
+                        </div>
+                        </div>
+                      </form>
     	            </div>
     			</div>
     		</div>
@@ -57,23 +77,6 @@
     <div class="container">
       <div class="row">
         <div class="span12">
-          <form action="/" class="form-inline">
-            <div class="form-group has-success has-feedback">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" id="tags" aria-describedby="inputGroupSuccess3Status" placeholder="tên công việc, tên nhà hàng">
-              </div>
-              <select class="select" name="city">
-                <option>Thành Phố </option>
-                <option value="sg">Tp.Hồ Chí Minh</option>
-                <option value="hn">Hà Nội</option>
-              </select>
-              <button type="submit" class="btn submit">
-                Search
-              </button>
-            </div>
-            </div>
-          </form>
       </div>
     </div>
   </div>
@@ -85,39 +88,7 @@
         <footer>
           <div class="col-md-6 a">© Pavia Systems Inc. 2017</div>
         </footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-      <script>
-      $( function() {
-        var availableTags = [
-          "phục vụ",
-          "phụ bếp",
-          "bếp chính",
-          "quản lý nhà hàng",
-          "bếp trưởng",
-          "phổ đình",
-          "king bbq",
-          "cổng vàng",
-          "thông dịch viên",
-          "lễ tân",
-          "bảo vệ",
-          // "Groovy",
-          // "Haskell",
-          // "Java",
-          // "JavaScript",
-          // "Lisp",
-          // "Perl",
-          // "PHP",
-          // "Python",
-          // "Ruby",
-          // "Scala",
-          // "Scheme"
-        ];
-        $( "#tags" ).autocomplete({
-          source: availableTags
-        });
-      } );
-      </script>
+
+
 </body>
 </html>
