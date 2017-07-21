@@ -8,7 +8,7 @@ from .models import Post
 class PostListView(ListView):
 
     model = Post
-    paginate_by = 5 #so luong phan tu trong page
+    paginate_by = 7 #so luong phan tu trong page
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)

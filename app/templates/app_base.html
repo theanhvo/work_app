@@ -3,27 +3,22 @@
 <html>
   <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/style.css" %}" >
-
     <!-- Latest compiled and minified JavaScript -->
     <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}">
-
     <!-- Latest compiled and minified JavaScript -->
     <!-- <script src="{% static "js/bootstrap.min.js" %}"></script> -->
+
     <title>Post</title>
   </head>
   <body>
     <header class="header">
     	<div class="container-fluid">
     		<div classs="row">
-    			<div class="col-sm-12 col-sm-12 main-header"
-
-
+    			<div class="col-sm-12 col-sm-12 main-header">
     				<nav class="navbar navbar-default">
     					<div class="container"
     					<!-- Brand and toggle get grouped for better mobile display -->
@@ -35,11 +30,10 @@
     						<span class="icon-bar"></span>
     					  </button>
     					</div>
-
     					<!-- Collect the nav links, forms, and other content for toggling -->
     					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     						<ul class="nav navbar-nav navbar-anh">
-    							  <li class="active"><a href="#"></a></li>
+    							  <!-- <li class="active"><a href="#"></a></li> -->
     							  <li>
     							  	<a href="/"><button class="btn btn-learning start-in">Home</button></a>
     							  </li>
@@ -60,64 +54,70 @@
     			</div>
     		</div>
     	</div>
-
     <div class="container">
-<div class="row">
-      <div class="span12">
-          <form action="/" id="custom-search-form" class="form-search form-horizontal pull-right">
-              <div class="input-append span12">
-                  <input type="text" name="search" class="search-query" placeholder="tên công việc, tên nhà hàng">
-                  <select name="city">
-                    <option>Thành Phố </option>
-                    <option value="sg">Tp.Hồ Chí Minh</option>
-                    <option value="hn">Hà Nội</option>
-                  </select>
-                  <button type="submit" class="btn">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                  </button>
-
+      <div class="row">
+        <div class="span12">
+          <form action="/" class="form-inline">
+            <div class="form-group has-success has-feedback">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" id="tags" aria-describedby="inputGroupSuccess3Status" placeholder="tên công việc, tên nhà hàng">
               </div>
+              <select class="select" name="city">
+                <option>Thành Phố </option>
+                <option value="sg">Tp.Hồ Chí Minh</option>
+                <option value="hn">Hà Nội</option>
+              </select>
+              <button type="submit" class="btn submit">
+                Search
+              </button>
+            </div>
+            </div>
           </form>
       </div>
-
-</div>
-</div>
+    </div>
+  </div>
         {% block content %}
 
         {% endblock %}
-
       <br>
-
   <hr>
         <footer>
           <div class="col-md-6 a">© Pavia Systems Inc. 2017</div>
         </footer>
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script>
+      $( function() {
+        var availableTags = [
+          "phục vụ",
+          "phụ bếp",
+          "bếp chính",
+          "quản lý nhà hàng",
+          "bếp trưởng",
+          "phổ đình",
+          "king bbq",
+          "cổng vàng",
+          "thông dịch viên",
+          "lễ tân",
+          "bảo vệ",
+          // "Groovy",
+          // "Haskell",
+          // "Java",
+          // "JavaScript",
+          // "Lisp",
+          // "Perl",
+          // "PHP",
+          // "Python",
+          // "Ruby",
+          // "Scala",
+          // "Scheme"
+        ];
+        $( "#tags" ).autocomplete({
+          source: availableTags
+        });
+      } );
+      </script>
 </body>
 </html>
-<!-- h1>Post</h1>
-<ul>
-{% for post in object_list %}
-    <li><img src="{% static post.logo_restaurant %}" class="img-responsive"></li>
-    <li>{{ post.restaurant_namme }}</li>
-    <li>{{ post.address }}</li>
-    <li>{{ post.wage }}</li>
-    <li>{{ post.employer_mail }}</li>
-    <li>{{ post.position }}</li>
-    <li>{{ post.created|date }}</li>
-    <li>{{ post.updated|date }}</li>
-    <li>Job:</li>
-      <ul>
-        {% for job in post.job_set.all %}
-          <li>{{ job.name }}</li>
-        {% endfor %}
-      </ul>
-    <li>{{ post.detail_job }}</li>
-    <li>{{ post.job_requirements }}</li>
-    <li>{{ post.why_love_this_job }}</li>
-{% empty %}
-    <li>Không tồn tại</li>
-{% endfor %} -->
