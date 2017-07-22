@@ -27,7 +27,7 @@ class PostListView(ListView):
         tags = self.request.GET.get('tags')
 
         if tags:
-            result = result.filter(job__name__unaccent=tags)
+            result = result.filter(job__name__unaccent__icontains=tags)
 
         if city in  ['hn', 'sg']:
             # filter with city

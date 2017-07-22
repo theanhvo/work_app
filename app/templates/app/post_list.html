@@ -3,6 +3,7 @@
 {% block content %}
   <div class='container'>
     {% for post in object_list %}
+    <p>{{tags}}</p>
     <div class="row content">
           <div class="col-sm-2 hoalip">
             <div class="picture"><img src="{{ post.logo_restaurant }}" class="img-responsive image_carousel"></a></div>
