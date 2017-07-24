@@ -9,10 +9,9 @@ from django.utils.translation import ugettext_lazy as _
 class Post(models.Model):
     HN = 'hn'
     SG = 'sg'
-    SG = 'sg'
     CITY_CHOICES = (
         (HN, 'Hà Nội'),
-        (SG, 'Tp.Hồ Chí Minh')
+        (SG, 'Hồ Chí Minh')
     )
 
     logo_restaurant = models.CharField(

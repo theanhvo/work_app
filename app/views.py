@@ -2,17 +2,21 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.utils import timezone
 
-from .models import Post
+from .models import Post, Job
 
 
 class PostListView(ListView):
 
     model = Post
-    paginate_by = 5 #so luong phan tu trong page
+    paginate_by = 7 #so luong phan tu trong page
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
+        context['suggests'] =[]
+        for name in Job.objects.all():
+            context['suggests'].append(name.name.strip())
+
         return context
 
     def get_queryset(self):
@@ -20,18 +24,14 @@ class PostListView(ListView):
 
         search = self.request.GET.get('search')
         city = self.request.GET.get('city')
+        tags = self.request.GET.get('tags')
+
+        if tags:
+            result = result.filter(job__name__unaccent__icontains=tags)
+
         if city in  ['hn', 'sg']:
             # filter with city
             result = result.filter(city=city)
-
-        if search:
-            search_list = search.split(',')
-            if len(search_list) >= 1:
-                # filter with job
-                result = result.filter(job__name__unaccent=search_list[0])
-            if len(search_list) >= 2:
-                # filter more with restaurant
-                result = result.filter(restaurant_namme__unaccent=search_list[1])
 
         return result
 

@@ -3,18 +3,19 @@
 {% block content %}
   <div class='container'>
     {% for post in object_list %}
+    <p>{{tags}}</p>
     <div class="row content">
           <div class="col-sm-2 hoalip">
             <div class="picture"><img src="{{ post.logo_restaurant }}" class="img-responsive image_carousel"></a></div>
           </div>
           <div class="col-sm-10 tutulip">
               <div class="deadline">
-                <a href="{% url 'post-detail' pk=post.pk %}"><span class="tulip">{{ post.restaurant_namme }}</span></a>
+                <a href="{% url 'post-detail' pk=post.pk %}"><strong class="tulip">{{ post.restaurant_namme }}</strong></a>
                 <p>{{ post.address }} </p>
                 {% for job in post.job_set.all %}
                 <p>{{ job.name }}</p>
                 {% endfor %}
-                <p>{{ post.deadline }}</p>
+                <p>Hạn nộp: {{ post.deadline }}</p>
               </div>
           </div>
         </div>
@@ -42,4 +43,17 @@
 {% endif %}
 </div>
   </div>
+
+  <script>
+  $( function() {
+    var availableTags = [
+      {% for suggest in suggests %}
+          "{{suggest}}",
+      {% endfor %}
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
 {% endblock %}
