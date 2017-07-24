@@ -115,7 +115,8 @@ class Post(models.Model):
 
 
     def __str__(self):
-        return self.restaurant_namme
+        return self.restaurant_namme.encode('ascii', 'ignore').decode('ascii')
+
 
 @python_2_unicode_compatible
 class Job(models.Model):
@@ -129,7 +130,7 @@ class Job(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.name.encode('ascii', 'ignore').decode('ascii')
 
 
 from django.contrib.auth.models import User

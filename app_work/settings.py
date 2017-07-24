@@ -24,8 +24,12 @@ SECRET_KEY = 'dcq!v-%3vrayfby51x-yc%!8_^)4&aa07%t2$@h+xw06$lh7ls'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if os.environ.get('PRODUCTION'):
+    DEBUG = False
 
 ALLOWED_HOSTS = []
+if os.environ.get('ALLOWED_HOSTS'):
+    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 # '0.0.0.0', 'a9803229.ngrok.io'
 
 # Application definition
@@ -87,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'app_work',
         'USER': 'app_work',
-        'PASSWORD': 'app_work',
+        'PASSWORD': os.environ.get('POSTGRESQL_PWD','app_work'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -133,7 +137,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-STATIC_ROOT = os.path.join(ROOT_DIR, "")
+STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(ROOT_DIR, ""))
 STATIC_URL = '/static/'
 
 AUTHENTICATION_BACKENDS = (
