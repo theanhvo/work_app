@@ -296,7 +296,7 @@ def crawl_detail(link):
         crawl_template1(link, page)
 
 if __name__ == '__main__':
-    url = "https://www.timviecnhanh.com/viec-lam-du-lich-nha-hang-khach-san-tai-ho-chi-minh-f23p1.html?page=1"
+    url = "https://www.timviecnhanh.com/viec-lam-du-lich-nha-hang-khach-san-tai-ha-noi-f23p2.html"
     # https://www.timviecnhanh.com/viec-lam-du-lich-nha-hang-khach-san-tai-ho-chi-minh-f23p1.html?page=1
     # https://www.timviecnhanh.com/viec-lam-du-lich-nha-hang-khach-san-tai-ha-noi-f23p2.html
     r = requests.get(url)
